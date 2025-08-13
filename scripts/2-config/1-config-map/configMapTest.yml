@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  MY_VAR: "hola!"
+  BYE_VAR: "adios!"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+    - name: app
+      image: nginx:1.25-alpine
+      command: ["sh", "-c", "echo $MY_VAR and $BYE_VAR && sleep 3600"]
+      envFrom:
+        - configMapRef:
+            name: my-config
