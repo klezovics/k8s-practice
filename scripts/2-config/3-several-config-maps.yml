@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-a
+data:
+  MY_VAR: "hola!"
+  BYE_VAR: "adios!"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-b
+data:
+  HELLO_VAR: "hello"
+  SEEYA_VAR: "bye"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+    - name: app
+      image: nginx:1.25-alpine
+      command:
+        - sh
+        - -c
+        - 'echo "$MY_VAR, $BYE_VAR, $HELLO_VAR, $SEEYA_VAR" && sleep 3600'
+      envFrom:
+        - configMapRef:
+            name: cm-a
+        - configMapRef:
+            name: cm-b
