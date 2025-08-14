@@ -1,0 +1,39 @@
+# pv-pvc-pod.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: demo-pvc
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Mi
+  storageClassName: standard   # on minikube often "standard" or "minikube-hostpath"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-writer
+spec:
+  initContainers:
+    - name: init-write
+      image: busybox
+      command: ["sh","-c"]
+      args:
+        - 'echo "hello from init $(date)" > /data/hello.txt && ls -l /data'
+      volumeMounts:
+        - name: data
+          mountPath: /data
+  containers:
+    - name: sleeper
+      image: nginx:alpine
+      command: ["sh","-c"]
+      args: ["nginx -g 'daemon off;'"]
+      volumeMounts:
+        - name: data
+          mountPath: /data
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: demo-pvc
