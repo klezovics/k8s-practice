@@ -1,3 +1,43 @@
+# Template syntax
+Helm uses Go template syntax
+
+Inject values from `values.yaml`
+```
+replicas: {{ .Values.replicaCount }}
+image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+```
+
+Access metadata
+```
+name: {{ .Release.Name }}         # release name (e.g., "my-app")
+namespace: {{ .Release.Namespace }}
+chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+```
+
+Use conditionals
+```
+{{- if .Values.enabled }}
+# render this section
+{{- end }}
+```
+
+Use loops
+```
+{{- range .Values.ports }}
+- containerPort: {{ . }}
+{{- end }}
+```
+
+Provide default values
+```
+{{ .Values.env | default "production" }}
+```
+
+Surrounds values with quotes
+```
+replicas: {{ .Values.replicaCount | quote }}
+```
+
 # Useful HELM commands
 
 # Working with charts made by others
