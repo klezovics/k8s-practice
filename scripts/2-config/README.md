@@ -1,3 +1,9 @@
+# Notes
+- Simplest subsystem. Just 2 objects.
+- Neither object references anything else.
+- The pod just mounts them (env vars or files) and consume them.
+- Only ConfigMaps/Secrets from the same namespace can be used.
+
 # Object types
 - ConfigMap → Non-sensitive key/values or config files.
 - Secret → Sensitive data (base64-encoded); supports special types (tls, dockerconfigjson, etc.).
