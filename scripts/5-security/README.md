@@ -1,3 +1,6 @@
+K8S security = Principals (Users + SA) + Roles + Principal-to-Role bindings
+K8S security also = Network policies(restrict comms) + Namespace security policies
+
 # Concepts
 - Pod Security Standard (PSS) → Determines how rooty a Pod can be.
 - Pod Security Admission (PSA) → Determines max level of privilege pods can have in a specific namespace
