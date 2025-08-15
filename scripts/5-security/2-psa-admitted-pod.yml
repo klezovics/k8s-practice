@@ -1,0 +1,49 @@
+# Namespace enforces the strictest PSS level via PSA labels.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: secure-ns
+  labels:
+    pod-security.kubernetes.io/enforce: restricted   # ⬅️ API will block pods that aren't "restricted"-compliant
+    pod-security.kubernetes.io/warn: restricted      # ⬅️ Shows warnings (doesn't affect admission)
+    pod-security.kubernetes.io/audit: restricted     # ⬅️ Audits non-compliance (doesn't affect admission)
+---
+# Pod that COMPLIES with "restricted" -> it will be ADMITTED (scheduled).
+# There is no single property that makes a pod "restricted", but the combination of properties
+# This combination is not that small
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-secure
+  namespace: secure-ns
+spec:
+  # ⬇️ Pod-level defaults; container can inherit these
+  securityContext:
+    runAsNonRoot: true                 # ⬅️ required by "restricted"
+    seccompProfile:
+      type: RuntimeDefault             # ⬅️ required by "restricted" (seccomp enabled)
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh","-c","echo OK && sleep 3600"]
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        allowPrivilegeEscalation: false  # ⬅️ required by "restricted"
+        capabilities:
+          drop: ["ALL"]                  # ⬅️ drop all caps (allowed to add none)
+        readOnlyRootFilesystem: true     # ⬅️ strongly recommended; many clusters require it under "restricted"
+        # privileged: false              # ⬅️ implied; privileged is forbidden
+        # hostNetwork/hostPID/hostIPC:  # ⬅️ not set; host namespaces are forbidden
+      volumeMounts:
+        - name: tmp
+          mountPath: /tmp               # ⬅️ writable scratch separate from rootfs
+  volumes:
+    - name: tmp
+      emptyDir: {}                      # ⬅️ allowed; no hostPath (hostPath is forbidden)
+
+# Why this schedules:
+# - Namespace enforces "restricted" via PSA -> only compliant pods are admitted.
+# - Pod satisfies key "restricted" rules: non-root, no privilege escalation, ALL caps dropped,
+#   seccomp=RuntimeDefault, no host namespaces, no hostPath, read-only rootfs.
+# - Result: Admission passes -> Pod is created and scheduled.
