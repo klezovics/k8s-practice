@@ -1,5 +1,6 @@
 # Notes
 - All pods in a deployment are identical replicas. They CANNOT be different.
+- Pods are the fundamental, everything else are just controllers that manage Pods via a `.spec.template` field.
 
 # Object types
 - Pod → Smallest deployable unit; one or more containers running together.
