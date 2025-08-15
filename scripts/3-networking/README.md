@@ -1,3 +1,8 @@
+# Notes
+- Services and Ingresses are just named router
+- Service routes based on labels
+- Ingress routes based on input (host/path) and service name -> Map (host/path) -> service name
+
 # Object types
 - Service → Stable virtual IP / DNS name that routes to one or more Pods (load-balancing, discovery).
 - Ingress → HTTP/HTTPS routing at the cluster edge; maps external hosts/paths to Services, can terminate TLS.
