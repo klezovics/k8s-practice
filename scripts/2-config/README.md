@@ -1,5 +1,6 @@
 # Notes
-- Simplest subsystem. Just 2 objects.
+- Simplest subsystem. Just 2 objects
+- Config maps and Secrets are just name key-value pair bags
 - Neither object references anything else.
 - The pod just mounts them (env vars or files) and consume them.
 - Only ConfigMaps/Secrets from the same namespace can be used.
