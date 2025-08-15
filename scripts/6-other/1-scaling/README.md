@@ -1,3 +1,6 @@
+# Notes
+- A HPA can only target ONE Deployment/StatefulSet/ReplicaSet (spec.scaleTargetRef).
+
 # Object types
 - HorizontalPodAutoscaler (HPA) → Auto-scales Pod replicas based on metrics.
 - VerticalPodAutoscaler (VPA, addon) → Recommends/sets Pod CPU/Memory requests/limits.
