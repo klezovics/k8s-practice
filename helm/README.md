@@ -1,5 +1,6 @@
 # Template syntax
-Helm uses Go template syntax
+- Helm uses Go template syntax
+- Provides roughly same functionality as programming language: variables, conditions, loops, functions, helpers like 'quote'/'nindent'
 
 Inject values from `values.yaml`
 ```
