@@ -1,3 +1,6 @@
+# Notes
+- All pods in a deployment are identical replicas. They CANNOT be different.
+
 # Object types
 - Pod → Smallest deployable unit; one or more containers running together.
 - ReplicaSet → Ensures a specified number of identical Pods are running.
