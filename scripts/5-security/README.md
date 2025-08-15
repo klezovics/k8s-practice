@@ -1,5 +1,8 @@
-K8S security = Principals (Users + SA) + Roles + Principal-to-Role bindings
-K8S security also = Network policies(restrict comms) + Namespace security policies
+# Key ideas
+- K8S security = Principals (Users + SA) + Roles + Principal-to-Role bindings
+- K8S security also = Network policies(restrict comms) + Namespace security policies
+- In GCP GKE you configure who can reach or talk to cluter at all
+- In K8S you configure what precisely can they do
 
 # Realistics security config
 - Assign some roles to users who manage/monitor the cluster.
