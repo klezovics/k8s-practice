@@ -1,6 +1,10 @@
 K8S security = Principals (Users + SA) + Roles + Principal-to-Role bindings
 K8S security also = Network policies(restrict comms) + Namespace security policies
 
+# Realistics security config
+- Assign some roles to users who manage/monitor the cluster.
+- Lock down the pod comms with NetworkPolicies.
+
 # Concepts
 - Pod `securityContext` is basically the per-pod / per-container security settings bucket in Kubernetes.
 - Pod Security Standard (PSS) → Determines how rooty a Pod can be.
