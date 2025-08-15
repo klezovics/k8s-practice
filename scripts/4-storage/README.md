@@ -49,6 +49,12 @@
 ## StorageClass
 - Doesn’t reference others; PVCs/PVs reference it.
 
+# PVC access modes — MMM: Who can mount the volume, and how.
+- RWO (ReadWriteOnce): One node can mount read-write. Many pods on that same node can use it.
+- ROX (ReadOnlyMany): Many nodes, but read-only.
+- RWX (ReadWriteMany): Many nodes, read-write (needs shared FS like NFS/EFS/CephFS).
+- RWO-Pod (ReadWriteOncePod): Exactly one pod in the whole cluster may mount read-write (stricter than RWO).
+
 # CKA tasks
 - Create a PersistentVolume (static provisioning).
 - Create a PersistentVolumeClaim that binds to an existing PV.
