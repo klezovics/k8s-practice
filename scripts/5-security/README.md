@@ -1,3 +1,7 @@
+# Concepts
+- Pod Security Standard (PSS) → Determines how rooty a Pod can be.
+- Pod Security Admission (PSA) → Determines max level of privilege pods can have in a specific namespace
+
 # Object types
 - ServiceAccount → Identity for Pods to access the API.
 - Role → Namespaced RBAC permissions.
