@@ -4,7 +4,7 @@
 
 # Object types
 - Pod → Smallest deployable unit; one or more containers running together.
-- ReplicaSet → Ensures a specified number of identical Pods are running.
+- ReplicaSet → Ensures a specified number of identical Pods are running. Just like a deployment, but without rolling updates. Almost never used directly.
 - Deployment → Manages ReplicaSets and rolling updates for stateless apps.
 - StatefulSet → Manages stateful Pods with stable identities and storage.
 - DaemonSet → Ensures a copy of a Pod runs on all (or selected) nodes.
