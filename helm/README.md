@@ -2,6 +2,7 @@
 - Helm uses Go template syntax
 - Provides roughly same functionality as programming language: variables, conditions, loops, functions, helpers like 'quote'/'nindent'
 
+## 1. Getting values
 Inject values from `values.yaml`
 ```
 replicas: {{ .Values.replicaCount }}
@@ -15,20 +16,35 @@ namespace: {{ .Release.Namespace }}
 chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 ```
 
-Use conditionals
+## 2. Programming language-like features
+Use conditionals (over some variables)
 ```
 {{- if .Values.enabled }}
 # render this section
 {{- end }}
 ```
 
-Use loops
+Use loops (over some variables)
 ```
 {{- range .Values.ports }}
 - containerPort: {{ . }}
 {{- end }}
 ```
 
+Define functions and reuse them
+1. Define a function
+```
+{{- define "demo.hello" -}}
+Hello, {{ .Values.name }}!
+{{- end -}}
+```
+2. Use it
+```
+  msg: {{ include "demo.hello" . }}
+```
+
+
+## 3. Helpers
 Provide default values
 ```
 {{ .Values.env | default "production" }}
